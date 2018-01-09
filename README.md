@@ -19,7 +19,7 @@ Please install them at first.
 
 Next step, please install npm packages
 
-    npm install .
+    npm install
 
 To compile the native code bindings, do this:
 
@@ -31,6 +31,10 @@ node_htip uses express which is a web application framework for node.js.
 To check the topology visualizer, simply run following command:
 
     npm start
+
+A web server that show a network topology, started to run.
+Please access to your web browser: [http://localhost:3000](http://localhost:3000).
+If you want to access from the other computer, please check firewall settings.
 
 # License
 MIT license, Copyright (c) 2018 Takashi OKADA.
