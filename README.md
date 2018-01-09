@@ -32,5 +32,5 @@ To check the topology visualizer, simply run following command:
 
     npm start
 
-## LICENSE
+# License
 MIT license, Copyright (c) 2018 Takashi OKADA.

@@ -33,7 +33,6 @@
         GREEN = 'green',
         RED = '#C5000B',
         ORANGE = 'orange',
-        //GRAY = '#666666',
         GRAY = 'gray',
         BLACK = '#2B1B17',
         MAX_NODE_NUMBER = 1024,
@@ -79,8 +78,6 @@
 
     function mac2Id(mac, maclist) {
       for (var i = 0; i < idMacList.length; i++) {
-        // if (DEBUG)
-        //   console.log('mac2Id i: ' + i + ', macs: ' + idMacList[i].mac);
         if (idMacList[i].mac == mac)
           return idMacList[i].id;
         if (idMacList[i].length > 0)
@@ -98,7 +95,6 @@
       edges = [];
 
       var xhr = new XMLHttpRequest();
-      // xhr.open("GET", "/api/node/list");
       xhr.open("GET", "/api/nodelist");
       xhr.addEventListener("load", function(e) {
         var nodeList = JSON.parse(xhr.responseText);
@@ -119,8 +115,6 @@
           var nodelabel1 = 'IP: ' + nodeList[i].ip + '\nMAC: ' + nodeList[i].mac;
           var nodelabel2 = '\n LLDP(' + nodeList[i].chassis_id + ' ' + nodeList[i].port_id + ' ' + nodeList[i].ttl + ' ' + nodeList[i].port_desc + ')\n HTIP(' + nodeList[i].device_category + ' ' + nodeList[i].manufacturer_code + ' ' + nodeList[i].model_name + ' ' + nodeList[i].model_number + ')';
           var nodelabel3 = '\nMAC list: ' + nodeList[i].maclist;
-          //nodes.push({id: id, label: 'IP: ' + nodeList[i].ip + ', MAC: ' + nodeList[i].mac, group: nodeList[i].type, value: 10});
-          // nodes.push({id: id, label: nodelabel1, group: nodeList[i].type, value: 10, title: nodelabel2});
           if (DEBUG)
             console.log('New node id: ' + id + ', label: ' + nodelabel1 + '-' + nodelabel2);
           if (nodeList[i].type == 'ARP')
@@ -146,7 +140,6 @@
             for (var k = 0; k < nodeList[i].fdb[j].mac.length; k++) {
               if (DEBUG)
                 console.log('  create edges nodeList[i].fdb[j].mac[k]: ' + nodeList[i].fdb[j].mac[k]);
-              // var toId = mac2Id(nodeList[i].fdb[j].mac[k]);
               var toId = mac2Id([nodeList[i].fdb[j].mac[k]], []);
               if (toId < 0) {
                 console.log("Fail to mac2Id to MAC:" + nodeList[i].fdb[j].mac[k]);
@@ -158,7 +151,6 @@
                 var nodelabel2 = '\n LLDP(' + null + ' ' + null + ' ' + null + ' ' + null + ')\n HTIP(' + null + ' ' + null + ' ' + null + ' ' + null + ')';
                 var nodelabel3 = '\nMAC list: ' + [];
                 nodes.push({id: toId, label: nodelabel1, group: 'Unknown', value: 10, title: nodelabel2 + nodelabel3});
-                // continue;
               }
               var found_index = -1;
               for (var l = 0; l < edges.length; l++) {
@@ -170,7 +162,6 @@
               if (found_index >= 0) {
                 edges[l].title = edges[l].title.replace(/--- /g, '--- ' + 'port' + nodeList[i].fdb[j].port);
               } else {
-                // edges.push({from: fromId, to: toId, length: LENGTH_MAIN, width: WIDTH_SCALE * 4, title: 'port' + nodeList[i].fdb[j].port + '(' + id2Mac(fromId) + ') --- (' + id2Mac(toId) + ')'});
                 edges.push({from: fromId, to: toId, length: LENGTH_MAIN, title: 'port' + nodeList[i].fdb[j].port + '(' + id2Mac(fromId) + ') --- (' + id2Mac(toId) + ')'});
               }
             }
@@ -188,8 +179,6 @@
 
         // legend
         var mynetwork = document.getElementById('mynetwork');
-        // var x = - mynetwork.clientWidth / 2 - 50;
-        // var y = - mynetwork.clientHeight / 2 + 50;
         var x = - mynetwork.clientWidth;
         var y = - mynetwork.clientHeight / 2;
         var step = 70;
@@ -213,7 +202,6 @@
           },
           edges: {
             color: GRAY, width: 0.5, smooth: false
-            //color: {inherit:true}, width: 0.15, smooth: {type: continuous} }
           },
           physics:{
             barnesHut:{gravitationalConstant:-30000},
